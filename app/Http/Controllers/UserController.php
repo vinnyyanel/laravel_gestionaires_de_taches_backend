@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Response;
@@ -23,7 +24,16 @@ class UserController extends Controller
      */
     public function store(UserRequest $userRequest)
     {
-        $user = User::create($userRequest->all());
+        $userData = $userRequest->all();
+        if (isset($userData['password'])) {
+            $userData['password'] = Hash::make($userData['password']);
+        }
+         // Créer un nouvel utilisateur
+    $user = new User($userData);
+
+    // Enregistrer l'utilisateur
+    $user->save();
+
         return response()->json($user);
     }
 
@@ -47,11 +57,16 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $userRequest, string $id)
+    public function update(string $id,UserRequest $userRequest)
     {
-        $user = User::where('id',$id)->update($userRequest->all());
+        try {
+            $user = User::where('id',$id)->update($userRequest->all());
 
         return response()->json(['message'=>'modification effectuer']);
+        } catch (\Throwable $th) {
+            return response()->json($th);
+        }
+
     }
 
     /**
