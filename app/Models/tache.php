@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class tache extends Model
 {
     use HasFactory;
-    protected $fillable =['description','user_id'];
+    protected $fillable =['titre','description','user_id'];
 
     /**
      * Get the user that owns the tache

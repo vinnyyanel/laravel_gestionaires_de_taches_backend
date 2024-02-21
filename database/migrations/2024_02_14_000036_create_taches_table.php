@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('taches', function (Blueprint $table) {
             $table->id();
+            $table->string('titre');
             $table->string('description');
             $table->timestamps();
 

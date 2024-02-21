@@ -22,6 +22,8 @@ use App\Http\Controllers\AuthController;
 
     Route::apiResource('/tache', TacheController::class);
 
+    Route::get('/hom/{id}',[TacheController::class,'getTacheByUserId']);
+
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout']);
 

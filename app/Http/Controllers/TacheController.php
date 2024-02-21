@@ -23,7 +23,7 @@ class TacheController extends Controller
     public function store(TacheRequest $tacheRequest)
     {
         $tache = tache::create($tacheRequest->all());
-        return response()->json($tache);
+        return response()->json(['message'=>'tache creer']);
     }
 
     /**
@@ -51,6 +51,15 @@ class TacheController extends Controller
                 ->update($tacheRequest->all());
 
         return response()->json(['message'=>'modification effectuer']);
+    }
+     /**
+     * getTacheByUserId the specified function in storage.
+     */
+    public function getTacheByUserId( string $id)
+    {
+        $taches = tache::where('user_id', $id)->get();
+
+        return response()->json($taches);
     }
 
     /**

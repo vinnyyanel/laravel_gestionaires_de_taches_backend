@@ -11,7 +11,7 @@ class AuthController extends Controller
    public function login(AuthUserRequest $authUserRequest){
 
     $credentials = $authUserRequest->only('name', 'password');
-    //$credentials = $authUserRequest->only('email', 'password');
+
          // Authentifier l'utilisateur
     if (Auth::attempt($credentials)) {
         // Générer un jeton d'accès
@@ -19,7 +19,8 @@ class AuthController extends Controller
         $token = $user->createToken($authUserRequest['name'])->accessToken;
 
         // Retourner le jeton d'accès
-        return response()->json(['token' => $token]);
+        return response()->json(['token' => $token,
+                                    'user'=> $user]);
     }else {
         return response()->json(['error' => 'Les informations d\'identification ne correspondent pas'], 401);
     }

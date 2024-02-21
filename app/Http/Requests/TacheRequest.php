@@ -22,7 +22,9 @@ class TacheRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'description'=>'required'
+            'titre'=>'required',
+            'description'=>'required',
+            'user_id'=>'required'
         ];
     }
 }
